@@ -8,7 +8,7 @@ def get_coord(city,key):
         if results:
             lat= round(results[0]['geometry']['lat'],2)
             lng= round(results[0]['geometry']['lng'],2)
-            return lat,lng
+            return f"широта: {lat}, долгота: {lng}"
         else:
             return "Город не найден!"
     except Exception as e:
