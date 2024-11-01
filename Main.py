@@ -8,16 +8,18 @@ def get_coord(city,key):
         if results:
             lat= round(results[0]['geometry']['lat'],2)
             lng= round(results[0]['geometry']['lng'],2)
-            return f"широта: {lat}, долгота: {lng}"
+            country=results[0]['components']['country']
+            region=results[0]['components']['state']
+            return f"широта: {lat}, долгота: {lng} \n страна: {country} регион: {region}"
         else:
             return "Город не найден!"
     except Exception as e:
         return f"Возникла ошибка: {e}"
 
-def show_coord():
+def show_coord(event=None):
     city=entry.get()
     coord = get_coord(city, key)
-    label.config(text=f"Координаты города {city} : {coord}")
+    label.config(text=f"Координаты города {city} :\n {coord}")
 
 key='420a69538d734305b55566a2e5894b65'
 
@@ -27,6 +29,7 @@ win.geometry("400x150")
 
 entry=Entry()
 entry.pack()
+entry.bind("<Return>",show_coord)
 
 button=Button(text="Поиск координат",command=show_coord).pack()
 
